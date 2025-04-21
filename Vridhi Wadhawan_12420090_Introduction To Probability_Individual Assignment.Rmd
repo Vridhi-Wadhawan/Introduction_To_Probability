@@ -1,0 +1,154 @@
+---
+title: "Introduction To Probability Assignment"
+output:
+  pdf_document: default
+  html_document:
+    df_print: paged
+---
+# INTRODUCTION TO PROBABILITY
+# Batch 23 (Class of 2025 Winter) Foundation Term
+# INDIVIDUAL ASSIGNMENT
+# Vridhi Wadhawan
+# By (12420090)
+# Answers (CODE FILE)
+
+```{r}
+#Q4. Part (I)
+#The number of ways to choose sub-groups is given by nCr
+#Total number of possible sub groups =  20C3 + 20C4 + 20C5 + 20C6
+a <-choose(20,3)
+a
+b <-choose(20,4)
+b
+c <-choose(20,5)
+c
+d <-choose(20,6)
+d
+result <- a+b+c+d
+result
+print(paste("Total number of possible sub groups are ", result))
+```
+```{r}
+#Q4. Part (II)
+#Total ways to choose 6 students students from 20 students = nCr = 20C6 
+d <-choose(20,6)
+d
+#Remaining 3 spots are to be filled by the  17 remaining students= nCr = 17C3
+e <-choose(17,3)
+e
+#Probability that all 3 senior students are chosen = P (3 seniors) = 17C3 / 20C6 
+f <- e/d
+f
+print(paste("Probability that all 3 senior students are chosen ", f))
+```
+
+```{r}
+#Q6
+# Create the sequence of outcomes
+x <- seq(0, 1, by = 0.01)
+x
+# Total number of outcomes
+n <- length(x)
+n
+# (a) P(X <= 0.33)
+prob_a <- sum(x <= 0.33) / n
+prob_a
+print(paste("P(X <= 0.33) =", prob_a))
+# (b) P(0.55 <= X <= 0.66)
+prob_b <- sum(x >= 0.55 & x <= 0.66) / n
+prob_b
+print(paste("P(0.55 <= X <= 0.66) =", prob_b))
+```
+
+```{r}
+#Q7
+# Given
+m <- 1000
+p <- 0.01
+# (a) Probability exactly 10 people are infected
+prob_exactly_10 <- dbinom(10, m, p)
+prob_exactly_10
+print(paste("Probability exactly 10 are infected:", prob_exactly_10))
+# (b) Probability at least 16 people are infected
+prob_at_least_16 <- 1 - pbinom(15, m, p)
+prob_at_least_16
+print(paste("Probability at least 16 are infected:", prob_at_least_16))
+# (c) Probability between 12 and 14 people are infected (inclusive)
+prob_between_12_14 <- sum(dbinom(12:14, m, p))
+prob_between_12_14
+print(paste("Probability between 12 and 14 are infected:", prob_between_12_14))
+# (d) Probability that at least one person is infected
+prob_someone_infected <- 1 - dbinom(0, m, p)
+prob_someone_infected
+print(paste("Probability that at least one person is infected:", prob_someone_infected))
+```
+```{r}
+#Q9
+#(a): Probability that more than six calls are made in one room
+lambda <- 2
+prob_more_than_6 <- 1 - ppois(6, lambda)
+prob_more_than_6
+print(paste("Probability that more than 6 calls are made in one room:", prob_more_than_6))
+#(b): Probability that in at least 3 rooms more than 6 calls are made
+no_rooms <- 100
+# Y ~ Binomial(no_rooms, prob_more_than_6)
+prob_at_least_3 <- 1 - pbinom(2, no_rooms, prob_more_than_6)
+prob_at_least_3
+print(paste("Probability that in at least 3 rooms more than 6 calls are made:", prob_at_least_3))
+```
+
+```{r}
+#Q8
+# Given probabilities for X (violations per home)
+prob_0 <- 0.4
+prob_1 <- 0.3
+prob_2 <- 0.2
+prob_3 <- 1 - (prob_0 + prob_1 + prob_2)  
+# (a)Print the completed probability for X = 3
+prob_3
+print(paste("P(X = 3) =", prob_3))
+# (b) Two homes: both have no violations
+prob_both_none <- prob_0^2
+prob_both_none
+print(paste("Probability both homes have no violations =", prob_both_none))
+# (c) Two homes: one has at most 1 violation and the other has at least 2 violations
+prob_at_most1 <- prob_0 + prob_1
+prob_at_most1
+prob_at_least2 <- prob_2 + prob_3 
+prob_at_least2
+prob_mixed <- 2 * prob_at_most1 * prob_at_least2
+prob_mixed
+print(paste("Probability one home has at most 1 and the other at least 2 violations =", prob_mixed))
+# (d) Five homes: fewer than 3 have at most 1 violation
+n <- 5
+p <- prob_at_most1
+prob_fewer_than_3 <- pbinom(2, n, p)
+prob_fewer_than_3
+print(paste("Probability that fewer than 3 of 5 homes have at most 1 violation =", prob_fewer_than_3))
+```
+
+```{r}
+#Q10
+# Given:
+elevator_capacity <- 1000
+#mean for men and women
+mean_men <- 172
+mean_women <- 143
+#standard deviation for men and women
+sd_men <- 29
+sd_women <- 29
+# Number of people in the elevator 
+num_men <- 3
+num_women <- 3
+# Total mean and variance and standard deviation
+total_mean <- num_men * mean_men + num_women * mean_women
+total_mean
+total_variance <- num_men * sd_men^2 + num_women * sd_women^2
+total_variance
+total_sd <- sqrt(total_variance)
+total_sd 
+# The probability that the total weight exceeds 1000 pounds
+prob_exceed <- 1 - pnorm(elevator_capacity, mean = total_mean, sd = total_sd)
+prob_exceed
+print(paste("Probability that the total weight exceeds 1000 pounds:", prob_exceed))
+```
